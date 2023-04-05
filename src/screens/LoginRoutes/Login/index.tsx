@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { View, Image } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 
-import { CreatorScreenProps } from '@src/types/navigation'
+import { CreatorScreenProps, getNavContainerRef } from '@src/types/navigation'
 
 import { Input, Button } from '@src/components'
 
@@ -24,6 +24,7 @@ const Login: FC<CreatorScreenProps<'Login'>> = ({}) => {
         <Button
           contentContainer={{ marginTop: 12 }}
           text={'Forgot password?'}
+          onClick={() => getNavContainerRef().navigate('ForgotPassword')}
           buttonContainer={styles.bFPassword}
           textStyle={styles.tBCNAcc}
         />

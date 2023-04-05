@@ -6,6 +6,7 @@ import { NavigationContainerRefWithCurrent } from '@react-navigation/core'
 export type LoginRoutes = {
   Login: undefined
   CreateNewAccount: undefined
+  ForgotPassword: undefined
 }
 
 export type AllRoutes = LoginRoutes

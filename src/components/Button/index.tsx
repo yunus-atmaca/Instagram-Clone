@@ -14,6 +14,7 @@ type Props = {
   contentContainer?: StyleProp<ViewStyle>
   buttonContainer?: StyleProp<ViewStyle>
   textStyle?: StyleProp<TextStyle>
+  onClick?: () => void
 }
 
 const Button: FC<Props> = ({
@@ -21,10 +22,16 @@ const Button: FC<Props> = ({
   contentContainer,
   buttonContainer,
   textStyle,
+  onClick,
 }) => {
+  const _onClick = () => onClick && onClick()
+
   return (
     <View style={[styles.contentContainer, contentContainer]}>
-      <TouchableOpacity style={[styles.container, buttonContainer]}>
+      <TouchableOpacity
+        onPress={_onClick}
+        activeOpacity={0.6}
+        style={[styles.container, buttonContainer]}>
         <Text style={[styles.text, textStyle]}>{text}</Text>
       </TouchableOpacity>
     </View>
