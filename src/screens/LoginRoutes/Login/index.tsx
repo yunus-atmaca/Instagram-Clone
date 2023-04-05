@@ -13,20 +13,25 @@ const Login: FC<CreatorScreenProps<'Login'>> = ({}) => {
         style={styles.logo}
         source={require('../../../../assets/images/insIc.png')}
       />
-      <>
+      <View>
         <Input placeholder="Username, email or mobile number" />
         <Input contentContainer={{ marginTop: 12 }} placeholder="Password" />
         <Button
           contentContainer={{ marginTop: 12 }}
           text={'Log in'}
-          buttonContainer={styles.button}
+          buttonContainer={styles.bLogin}
         />
-      </>
-
+        <Button
+          contentContainer={{ marginTop: 12 }}
+          text={'Forgot password?'}
+          buttonContainer={styles.bFPassword}
+          textStyle={styles.tBCNAcc}
+        />
+      </View>
       <Button
-        contentContainer={{ marginTop: 12 }}
         text={'Create New Account'}
-        buttonContainer={styles.button}
+        buttonContainer={styles.bCNAcc}
+        textStyle={styles.tBCNAcc}
       />
     </View>
   )
@@ -35,17 +40,34 @@ const Login: FC<CreatorScreenProps<'Login'>> = ({}) => {
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
-    //alignItems: 'center',
-    //backgroundColor: 'blue',
+    backgroundColor: '#f7f9f7',
+    justifyContent: 'space-between',
+    paddingTop: '108@ms',
+    paddingBottom: '16@ms',
   },
   logo: {
     width: '72@ms',
     height: '72@ms',
     alignSelf: 'center',
-    marginVertical: '108@ms',
   },
-  button: {
+  bLogin: {
     backgroundColor: '#2d55ff',
+    height: '48@ms',
+  },
+  bCNAcc: {
+    backgroundColor: 'transparent',
+    paddingVertical: '8@ms',
+    borderWidth: 0.5,
+    borderColor: 'grey',
+  },
+  tBCNAcc: {
+    color: 'black',
+    fontSize: 14,
+    fontWeight: '400',
+  },
+  bFPassword: {
+    backgroundColor: 'transparent',
+    paddingVertical: '8@ms',
   },
 })
 

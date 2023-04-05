@@ -33,7 +33,7 @@ const Button: FC<Props> = ({
 
 const styles = ScaledSheet.create({
   contentContainer: {
-    height: '48@ms',
+    //height: '48@ms',
     paddingHorizontal: '16@ms',
   },
   container: {
@@ -41,7 +41,7 @@ const styles = ScaledSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
     width: '100%',
-    height: '100%',
+    //height: '100%',
   },
   text: {
     fontSize: 16,
