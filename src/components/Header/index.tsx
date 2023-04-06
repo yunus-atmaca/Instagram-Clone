@@ -1,20 +1,35 @@
 import React, { FC } from 'react'
-import { View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
+import Icon from 'react-native-vector-icons/Ionicons'
 
-import { Ic_ChevronLeft } from '@src/res'
+import { getNavContainerRef } from '@src/types/navigation'
 
 type Props = {
   onPrefix?: () => void
   onPostfix?: () => void
+  prefixIc?: JSX.Element
+  postfixIc?: JSX.Element
 }
 
-const Header: FC<Props> = ({}) => {
+const Header: FC<Props> = ({ onPrefix, onPostfix, prefixIc, postfixIc }) => {
+  const _onPrefix = () => {
+    onPrefix ? onPrefix() : getNavContainerRef().goBack()
+  }
+
   return (
     <View style={styles.container}>
-      <View style={styles.button}>
-        <Ic_ChevronLeft />
-      </View>
+      <TouchableOpacity
+        onPress={_onPrefix}
+        activeOpacity={0.6}
+        style={styles.button}>
+        <Icon
+          name="ios-chevron-back"
+          size={36}
+          color="black"
+          style={{ padding: 0 }}
+        />
+      </TouchableOpacity>
     </View>
   )
 }
@@ -24,7 +39,7 @@ const styles = ScaledSheet.create({
     height: '56@ms',
     width: '100%',
     paddingHorizontal: '16@ms',
-    backgroundColor: 'red',
+    //backgroundColor: 'red',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -32,7 +47,7 @@ const styles = ScaledSheet.create({
   button: {
     height: '100%',
     justifyContent: 'center',
-    backgroundColor: 'blue',
+    //backgroundColor: 'blue',
   },
 })
 

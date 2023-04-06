@@ -1,3 +1,4 @@
 import ChevronLeft from './icons/ChevronLeft'
+import { COLORS } from './colors'
 
-export { ChevronLeft as Ic_ChevronLeft }
+export { COLORS, ChevronLeft as Ic_ChevronLeft }
