@@ -36,8 +36,16 @@ export type HRSScreenPropsC<K extends keyof HomeRoutes> = CompositeScreenProps<
   StackScreenProps<StackParamList>
 >
 
-export const _navReference = createNavigationContainerRef<AllRoutes>()
-export const getNavContainerRef =
-  (): NavigationContainerRefWithCurrent<AllRoutes> => {
-    return _navReference
-  }
+//navigation login routes reference
+export const _navLRRef = createNavigationContainerRef<LoginRoutes>()
+//get login navigation reference
+export const getLNRef = (): NavigationContainerRefWithCurrent<LoginRoutes> => {
+  return _navLRRef
+}
+
+//navigation home routes reference
+export const _navHRRef = createNavigationContainerRef<HomeRoutes>()
+//get home navigation routes reference
+export const getHNRef = (): NavigationContainerRefWithCurrent<HomeRoutes> => {
+  return _navHRRef
+}

@@ -1,7 +1,7 @@
 import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, NavigationState } from '@react-navigation/native'
 
-import { getNavContainerRef } from '@src/types/navigation'
+import { getLNRef, getHNRef } from '@src/types/navigation'
 import { useAppSelector } from '@src/types/store'
 import LoginStackNav from './LoginStackNav'
 import HomeNav from './HomeNav'
@@ -9,13 +9,20 @@ import HomeNav from './HomeNav'
 const RootNav = () => {
   const user = useAppSelector(s => s.authController.user)
 
-  const _onStateChange = () => {}
+  const _onStateChange = (state: NavigationState | undefined) => {
+    console.debug('navigation state -> ', state?.routeNames, state?.index)
+  }
 
+  if (user) {
+    return (
+      <NavigationContainer ref={getHNRef()} onStateChange={_onStateChange}>
+        <HomeNav />
+      </NavigationContainer>
+    )
+  }
   return (
-    <NavigationContainer
-      ref={getNavContainerRef()}
-      onStateChange={_onStateChange}>
-      {user ? <HomeNav /> : <LoginStackNav />}
+    <NavigationContainer ref={getLNRef()} onStateChange={_onStateChange}>
+      <LoginStackNav />
     </NavigationContainer>
   )
 }

@@ -1,19 +1,17 @@
 import React, { FC } from 'react'
 import { TouchableOpacity, Text, View } from 'react-native'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
-import {} from 'react-native-size-matters'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import { ScaledSheet } from 'react-native-size-matters'
 
-const TabBar: FC<BottomTabBarProps> = ({ state, descriptors, navigation }) => {
+import { COLORS } from '@src/res'
+
+const TabBar: FC<BottomTabBarProps> = ({ state, navigation }) => {
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <View style={styles.container}>
       {state.routes.map((route, index) => {
-        //const { options } = descriptors[route.key]
-        /*const label =
-          options.tabBarLabel !== undefined
-            ? options.tabBarLabel
-            : options.title !== undefined
-            ? options.title
-            : route.name*/
+        const label = route.name
 
         const isFocused = state.index === index
 
@@ -25,33 +23,67 @@ const TabBar: FC<BottomTabBarProps> = ({ state, descriptors, navigation }) => {
           })
 
           if (!isFocused && !event.defaultPrevented) {
-            // The `merge: true` option makes sure that the params inside the tab screen are preserved
-            navigation.navigate({ name: route.name, merge: true })
+            navigation.navigate({ name: route.name, merge: true } as any)
           }
         }
-
-        const onLongPress = () => {
-          navigation.emit({
-            type: 'tabLongPress',
-            target: route.key,
-          })
-        }
-
         return (
-          <TouchableOpacity
-            accessibilityRole="button"
-            accessibilityState={isFocused ? { selected: true } : {}}
-            onPress={onPress}
-            onLongPress={onLongPress}
-            style={{ flex: 1 }}>
-            <Text style={{ color: isFocused ? '#673ab7' : '#222' }}>
-              {'label'}
-            </Text>
+          <TouchableOpacity key={label} onPress={onPress} style={styles.icon}>
+            {getIcon(label, isFocused)}
           </TouchableOpacity>
         )
       })}
     </View>
   )
 }
+
+const getIcon = (label: string, isFocused: boolean) => {
+  switch (label) {
+    case 'Home':
+      return <Ionicons size={20} name={isFocused ? 'home' : 'home-outline'} />
+    case 'Search':
+      return (
+        <Ionicons size={20} name={isFocused ? 'search' : 'search-outline'} />
+      )
+    case 'NewPost':
+      return <FontAwesome size={20} name={'plus-square-o'} />
+    case 'Reels':
+      return (
+        <Ionicons
+          size={20}
+          name={isFocused ? 'ios-play-circle-outline' : 'ios-play-circle'}
+        />
+      )
+    case 'Profile':
+      return <View style={styles.user}></View>
+
+    default:
+      break
+  }
+}
+
+const styles = ScaledSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: '48@ms',
+    borderTopWidth: 0.5,
+    borderTopColor: COLORS.grey1,
+    justifyContent: 'center',
+  },
+  icon: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  user: {
+    width: '20@ms',
+    height: '20@ms',
+    borderRadius: 100,
+    borderColor: COLORS.grey,
+    borderWidth: 0.5,
+  },
+
+  plus: {},
+})
 
 export default TabBar

@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import { Text, View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 
-import { LRScreenPropsC, getNavContainerRef } from '@src/types/navigation'
+import { LRScreenPropsC, getLNRef } from '@src/types/navigation'
 import { STYLES, COLORS } from '@src/res'
 import { Button, Header, Input } from '@src/components'
 
@@ -54,7 +54,7 @@ const CreateNewAccount: FC<LRScreenPropsC<'CreateNewAccount'>> = ({}) => {
         />
       </View>
       <Button
-        onClick={() => getNavContainerRef().goBack()}
+        onClick={() => getLNRef().goBack()}
         textStyle={styles.tBAlreadyHA}
         buttonContainer={styles.bAlreadyHA}
         text={'Already have an account?'}

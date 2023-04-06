@@ -3,7 +3,8 @@ import { TouchableOpacity, View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-import { getNavContainerRef } from '@src/types/navigation'
+import { getLNRef, getHNRef } from '@src/types/navigation'
+import { useAppSelector } from '@src/types/store'
 
 type Props = {
   onPrefix?: () => void
@@ -13,8 +14,14 @@ type Props = {
 }
 
 const Header: FC<Props> = ({ onPrefix, onPostfix, prefixIc, postfixIc }) => {
+  const user = useAppSelector(s => s.authController.user)
+
   const _onPrefix = () => {
-    onPrefix ? onPrefix() : getNavContainerRef().goBack()
+    if (onPrefix) {
+      onPrefix()
+    } else {
+      user ? getHNRef().goBack() : getLNRef().goBack()
+    }
   }
 
   return (

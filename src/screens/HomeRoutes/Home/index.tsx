@@ -1,12 +1,25 @@
-import React from 'react'
-import {} from 'react-native'
-import {} from 'react-native-size-matters'
+import React, { FC } from 'react'
+import { View } from 'react-native'
+import { ScaledSheet } from 'react-native-size-matters'
 
-import {  } from '@src/types/navigation'
+import { HRSScreenPropsC } from '@src/types/navigation'
+import { COLORS } from '@src/res'
 
-const Home = () =>{
+import Header from './Header'
 
-  return null
+const Home: FC<HRSScreenPropsC<'Home'>> = ({}) => {
+  return (
+    <View style={styles.container}>
+      <Header />
+    </View>
+  )
 }
+
+const styles = ScaledSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.primary,
+  },
+})
 
 export default Home

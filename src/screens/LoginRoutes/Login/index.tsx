@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { View, Image } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 
-import { LRScreenPropsC, getNavContainerRef } from '@src/types/navigation'
+import { LRScreenPropsC, getLNRef } from '@src/types/navigation'
 
 import { Input, Button } from '@src/components'
 import { useAppDispatch } from '@src/types/store'
@@ -33,13 +33,13 @@ const Login: FC<LRScreenPropsC<'Login'>> = ({}) => {
         <Button
           contentContainer={{ marginTop: 12 }}
           text={'Forgot password?'}
-          onClick={() => getNavContainerRef().navigate('ForgotPassword')}
+          onClick={() => getLNRef().navigate('ForgotPassword')}
           buttonContainer={styles.bFPassword}
           textStyle={styles.tBCNAcc}
         />
       </View>
       <Button
-        onClick={() => getNavContainerRef().navigate('CreateNewAccount')}
+        onClick={() => getLNRef().navigate('CreateNewAccount')}
         text={'Create New Account'}
         buttonContainer={styles.bCNAcc}
         textStyle={styles.tBCNAcc}
