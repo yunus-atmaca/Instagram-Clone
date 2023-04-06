@@ -52,15 +52,6 @@ const AnimatedPlaceholder: FC<Props> = ({
   })
 
   useEffect(() => {
-    console.debug('collapsed -> ', collapsed)
-
-    /*if (!collapsed) {
-      height.value = inputHeight
-      fontSize.value = T_SIZE
-    } else {
-      animation(collapsed)
-    }*/
-
     animation(collapsed)
 
     return () => {
@@ -70,7 +61,7 @@ const AnimatedPlaceholder: FC<Props> = ({
   }, [collapsed])
 
   const animation = (collapsed: boolean) => {
-    console.debug('animation => ', collapsed)
+    //console.debug('animation => ', collapsed)
     const onFinishAnimation = () => {
       //onFinishAnim()
     }

@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import { Text, View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 
-import { CreatorScreenProps, getNavContainerRef } from '@src/types/navigation'
+import { LRScreenPropsC, getNavContainerRef } from '@src/types/navigation'
 import { STYLES, COLORS } from '@src/res'
 import { Button, Header, Input } from '@src/components'
 
@@ -25,7 +25,7 @@ const texts = {
   },
 }
 
-const CreateNewAccount: FC<CreatorScreenProps<'CreateNewAccount'>> = ({}) => {
+const CreateNewAccount: FC<LRScreenPropsC<'CreateNewAccount'>> = ({}) => {
   const [iType, setIType] = useState<'number' | 'string'>('number')
 
   return (

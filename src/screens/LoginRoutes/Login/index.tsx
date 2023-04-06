@@ -2,11 +2,19 @@ import React, { FC } from 'react'
 import { View, Image } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 
-import { CreatorScreenProps, getNavContainerRef } from '@src/types/navigation'
+import { LRScreenPropsC, getNavContainerRef } from '@src/types/navigation'
 
 import { Input, Button } from '@src/components'
+import { useAppDispatch } from '@src/types/store'
+import { setUser } from '@src/store/controllers/auth'
 
-const Login: FC<CreatorScreenProps<'Login'>> = ({}) => {
+const Login: FC<LRScreenPropsC<'Login'>> = ({}) => {
+  const dispatch = useAppDispatch()
+
+  const onLogin = () => {
+    dispatch(setUser('user'))
+  }
+
   return (
     <View style={styles.container}>
       <Image
@@ -17,6 +25,7 @@ const Login: FC<CreatorScreenProps<'Login'>> = ({}) => {
         <Input placeholder="Username, email or mobile number" />
         <Input contentContainer={{ marginTop: 12 }} placeholder="Password" />
         <Button
+          onClick={onLogin}
           contentContainer={{ marginTop: 12 }}
           text={'Log in'}
           buttonContainer={styles.bLogin}

@@ -2,11 +2,11 @@ import React, { FC, useState } from 'react'
 import { Text, View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 
-import { CreatorScreenProps } from '@src/types/navigation'
+import { LRScreenPropsC } from '@src/types/navigation'
 import { Button, Header, Input } from '@src/components'
 import { STYLES, COLORS } from '@src/res'
 
-const ForgotPassword: FC<CreatorScreenProps<'ForgotPassword'>> = ({}) => {
+const ForgotPassword: FC<LRScreenPropsC<'ForgotPassword'>> = ({}) => {
   const [iType, setIType] = useState<'number' | 'string'>('string')
 
   const onNeedMoreHelp = () => {}
