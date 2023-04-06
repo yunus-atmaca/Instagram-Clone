@@ -30,6 +30,7 @@ const Login: FC<CreatorScreenProps<'Login'>> = ({}) => {
         />
       </View>
       <Button
+        onClick={() => getNavContainerRef().navigate('CreateNewAccount')}
         text={'Create New Account'}
         buttonContainer={styles.bCNAcc}
         textStyle={styles.tBCNAcc}

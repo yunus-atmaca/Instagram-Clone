@@ -5,13 +5,18 @@ import {
   View,
   StyleProp,
   ViewStyle,
+  TextStyle,
+  Text,
 } from 'react-native'
 import { ScaledSheet, moderateScale } from 'react-native-size-matters'
 
 import AnimatedPlaceholder from './AnimatedPlaceholder'
+import { COLORS } from '@src/res'
 
 type Props = TextInputProps & {
   contentContainer?: StyleProp<ViewStyle>
+  infoText?: string
+  infoTextStyle?: StyleProp<TextStyle>
 }
 
 const INPUT_HEIGHT = 56
@@ -21,6 +26,7 @@ const Input: FC<Props> = ({
   contentContainer,
   placeholder,
   placeholderTextColor,
+  infoText = undefined,
   ...props
 }) => {
   const ref = useRef<TextInput>(null)
@@ -40,8 +46,8 @@ const Input: FC<Props> = ({
 
   const _onBlur = () => {
     //console.debug('on-blur->')
-    
-    if (text.length === 0){
+
+    if (text.length === 0) {
       setIPE('none')
       setCollapsed(false)
     }
@@ -73,6 +79,7 @@ const Input: FC<Props> = ({
           onClickPlaceHolder={_onClickPlaceHolder}
         />
       </View>
+      {infoText && <Text style={styles.info}>{infoText}</Text>}
     </View>
   )
 }
@@ -80,12 +87,12 @@ const Input: FC<Props> = ({
 const styles = ScaledSheet.create({
   contentContainer: {
     paddingHorizontal: '16@ms',
-    height: INPUT_HEIGHT,
+    //height: INPUT_HEIGHT,
     //backgroundColor: 'green',
   },
   container: {
     width: '100%',
-    height: '100%',
+    height: INPUT_HEIGHT,
     backgroundColor: 'white',
     borderRadius: 5,
     borderWidth: 0.5,
@@ -99,6 +106,11 @@ const styles = ScaledSheet.create({
     height: INPUT_HEIGHT - COLLAPSED_HEIGHT,
     fontWeight: '500',
     paddingHorizontal: '16@ms',
+  },
+  info: {
+    fontSize: 12,
+    color: COLORS.grey3,
+    marginTop:'8@ms'
   },
 })
 

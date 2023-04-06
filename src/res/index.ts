@@ -1,4 +1,5 @@
 import ChevronLeft from './icons/ChevronLeft'
 import { COLORS } from './colors'
+import * as STYLES from './styles'
 
-export { COLORS, ChevronLeft as Ic_ChevronLeft }
+export { STYLES, COLORS, ChevronLeft as Ic_ChevronLeft }

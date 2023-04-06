@@ -4,47 +4,43 @@ import { ScaledSheet } from 'react-native-size-matters'
 
 import { CreatorScreenProps } from '@src/types/navigation'
 import { Button, Header, Input } from '@src/components'
-import { COLORS } from '@src/res'
+import { STYLES, COLORS } from '@src/res'
 
 const ForgotPassword: FC<CreatorScreenProps<'ForgotPassword'>> = ({}) => {
-  const [description, setDescription] = useState<
-    'Enter your username or email.' | 'Enter your mobile number.'
-  >('Enter your username or email.')
-
-  const [pHolder, setPHolder] = useState<'Username or email' | 'Mobile number'>(
-    'Username or email',
-  )
+  const [iType, setIType] = useState<'number' | 'string'>('string')
 
   const onNeedMoreHelp = () => {}
 
-  const onSearchBy = () => {
-    setDescription(prev =>
-      prev === 'Enter your mobile number.'
-        ? 'Enter your username or email.'
-        : 'Enter your mobile number.',
-    )
-
-    setPHolder(prev =>
-      prev === 'Mobile number' ? 'Username or email' : 'Mobile number',
-    )
-  }
+  const onSearchBy = () =>
+    setIType(prev => (prev === 'string' ? 'number' : 'string'))
 
   return (
     <View style={styles.container}>
       <Header />
-      <Text style={styles.title}>Find your account</Text>
-      <Text style={styles.description}>{description}</Text>
+      <Text style={STYLES.default.title}>Find your account</Text>
+      <Text style={STYLES.default.description}>
+        {iType === 'string'
+          ? 'Enter your username or email.'
+          : 'Enter your mobile number.'}
+      </Text>
       <Text
         onPress={onNeedMoreHelp}
-        style={[styles.description, { color: COLORS.blue }]}>
+        style={[STYLES.default.description, { color: COLORS.blue }]}>
         Need more help?
       </Text>
-      <Input contentContainer={styles.cInput} placeholder={pHolder} />
+      <Input
+        contentContainer={styles.cInput}
+        placeholder={iType === 'string' ? 'Username or email' : 'Mobile number'}
+      />
       <Button buttonContainer={styles.bFindAcc} text="Find Account" />
       <Button
         onClick={onSearchBy}
         buttonContainer={styles.bSearch}
-        text="Search by mobile number instead"
+        text={
+          iType === 'string'
+            ? 'Search by mobile number instead'
+            : 'Search by email instead'
+        }
         textStyle={styles.tBSearch}
       />
     </View>
@@ -55,19 +51,6 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f7f9f7',
-  },
-  title: {
-    fontWeight: '700',
-    fontSize: 24,
-    color: 'black',
-    paddingStart: '16@ms',
-    marginTop: '12@ms',
-  },
-  description: {
-    fontSize: 14,
-    color: 'black',
-    paddingStart: '16@ms',
-    marginTop: '8@ms',
   },
   cInput: {
     marginTop: '16@ms',
