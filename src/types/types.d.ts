@@ -1,3 +1,15 @@
+declare global {}
+
+interface IMedia {
+  type: 'video' | 'image'
+  data: string
+}
+
+interface IStoy {
+  user: IUser
+  media: IMedia[]
+}
+
 interface IUser {
   gender: string
   name: Name
