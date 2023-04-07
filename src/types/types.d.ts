@@ -5,6 +5,11 @@ interface IMedia {
   data: string
 }
 
+interface IPost {
+  user: IUser
+  media: IMedia[]
+}
+
 interface IStoy {
   user: IUser
   media: IMedia[]

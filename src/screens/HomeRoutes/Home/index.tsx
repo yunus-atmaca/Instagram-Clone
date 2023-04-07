@@ -4,7 +4,7 @@ import { ScaledSheet } from 'react-native-size-matters'
 
 import { HRSScreenPropsC } from '@src/types/navigation'
 import { COLORS } from '@src/res'
-import { Stories } from '@src/components'
+import {Posts, Stories } from '@src/components'
 
 import Header from './Header'
 
@@ -15,6 +15,7 @@ const Home: FC<HRSScreenPropsC<'Home'>> = ({}) => {
     <View style={styles.container}>
       <Header />
       <Stories />
+      <Posts />
     </View>
   )
 }
