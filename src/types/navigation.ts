@@ -5,7 +5,26 @@ import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
 import { createNavigationContainerRef } from '@react-navigation/native'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/core'
 
-export type StackParamList = {}
+export type SearchStack = {
+  Search: undefined
+  Explore: undefined
+}
+
+export type HomeStack = {
+  Home: undefined
+}
+
+export type NewPostStack = {
+  NewPost: undefined
+}
+
+export type ProfileStack = {
+  Profile: undefined
+}
+
+export type ReelsStack = {
+  Reels: undefined
+}
 
 export type LoginRoutes = {
   Login: undefined
@@ -14,11 +33,11 @@ export type LoginRoutes = {
 }
 
 export type HomeRoutes = {
-  Home: undefined
-  NewPost: undefined
-  Profile: undefined
-  Reels: undefined
-  Search: undefined
+  HomeTab: HomeStack
+  NewPostTab: NewPostStack
+  ProfileTab: ProfileStack
+  ReelsTab: ReelsStack
+  SearchTab: SearchStack
 }
 
 export type AllRoutes = LoginRoutes | HomeRoutes
@@ -31,9 +50,12 @@ export type LRScreenPropsC<K extends keyof LoginRoutes> = StackScreenProps<
 >
 
 //Home routes screen props creator
-export type HRSScreenPropsC<K extends keyof HomeRoutes> = CompositeScreenProps<
+export type HRSScreenPropsC<
+  K extends keyof HomeRoutes,
+  T extends keyof HomeRoutes[K],
+> = CompositeScreenProps<
   BottomTabScreenProps<HomeRoutes, K>,
-  StackScreenProps<StackParamList>
+  StackScreenProps<HomeRoutes[K], T>
 >
 
 //navigation login routes reference

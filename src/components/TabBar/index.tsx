@@ -38,22 +38,22 @@ const TabBar: FC<BottomTabBarProps> = ({ state, navigation }) => {
 
 const getIcon = (label: string, isFocused: boolean) => {
   switch (label) {
-    case 'Home':
+    case 'HomeTab':
       return <Ionicons size={20} name={isFocused ? 'home' : 'home-outline'} />
-    case 'Search':
+    case 'SearchTab':
       return (
         <Ionicons size={20} name={isFocused ? 'search' : 'search-outline'} />
       )
-    case 'NewPost':
+    case 'NewPostTab':
       return <FontAwesome size={20} name={'plus-square-o'} />
-    case 'Reels':
+    case 'ReelsTab':
       return (
         <Ionicons
           size={20}
           name={isFocused ? 'ios-play-circle-outline' : 'ios-play-circle'}
         />
       )
-    case 'Profile':
+    case 'ProfileTab':
       return <View style={styles.user}></View>
 
     default:

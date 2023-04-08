@@ -5,11 +5,9 @@ import { FlashList } from '@shopify/flash-list'
 
 import { HRSScreenPropsC } from '@src/types/navigation'
 import { COLORS } from '@src/res'
-import {SearchBar} from '@src/components'
+import { SearchBar } from '@src/components'
 
-const Search: FC<HRSScreenPropsC<'Search'>> = () => {
-
-
+const Search: FC<HRSScreenPropsC<'SearchTab', 'Search'>> = () => {
   return (
     <View style={styles.container}>
       <SearchBar />

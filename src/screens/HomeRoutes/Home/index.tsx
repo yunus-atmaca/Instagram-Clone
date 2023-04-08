@@ -4,11 +4,11 @@ import { ScaledSheet } from 'react-native-size-matters'
 
 import { HRSScreenPropsC } from '@src/types/navigation'
 import { COLORS } from '@src/res'
-import {Posts, Stories } from '@src/components'
+import { Posts, Stories } from '@src/components'
 
 import Header from './Header'
 
-const Home: FC<HRSScreenPropsC<'Home'>> = ({}) => {
+const Home: FC<HRSScreenPropsC<'HomeTab', 'Home'>> = ({}) => {
   useEffect(() => {}, [])
 
   return (
