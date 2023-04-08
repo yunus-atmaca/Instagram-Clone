@@ -1,5 +1,14 @@
 declare global {}
 
+//search data type
+interface ISDType {
+  
+}
+
+interface ISearchData {
+
+}
+
 interface IMedia {
   type: 'video' | 'image'
   data: string

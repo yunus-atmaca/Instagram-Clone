@@ -1,12 +1,27 @@
 import React, { FC } from 'react'
-import {} from 'react-native'
-import {} from 'react-native-size-matters'
+import { View } from 'react-native'
+import { ScaledSheet } from 'react-native-size-matters'
+import { FlashList } from '@shopify/flash-list'
 
-import {  } from '@src/types/navigation'
+import { HRSScreenPropsC } from '@src/types/navigation'
+import { COLORS } from '@src/res'
+import {SearchBar} from '@src/components'
 
-const Search:FC = () =>{
+const Search: FC<HRSScreenPropsC<'Search'>> = () => {
 
-  return null
+
+  return (
+    <View style={styles.container}>
+      <SearchBar />
+      {/*<FlashList /> */}
+    </View>
+  )
 }
 
+const styles = ScaledSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+  },
+})
 export default Search

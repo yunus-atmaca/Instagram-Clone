@@ -115,6 +115,17 @@ const generateRandomNumber = (max?: number, min?: number) => {
   return Math.floor(Math.random() * (max || 10)) + (min || 0)
 }
 
+export const generateSearchData = () => {
+  const tImgs = [...images]
+  const tVideos = [...videos]
+
+  const sData = []
+
+  for (let i = 0; i < 10; ++i) {}
+
+  return []
+}
+
 export const getImg = (imgName: string) => {
   switch (imgName) {
     case 'sImg1.jpeg':
