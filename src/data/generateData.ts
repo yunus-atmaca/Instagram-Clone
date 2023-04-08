@@ -1,4 +1,12 @@
-import { IMedia, IPost, IStoy, IUser } from '@src/types/types'
+import {
+  IMedia,
+  IPost,
+  ISDType,
+  ISearchData,
+  IStoy,
+  IUser,
+  IVideo,
+} from '@src/types/types'
 
 const users: IUser[] = require('./users.json').results
 const images = [
@@ -40,7 +48,7 @@ const images = [
   'sImg36.jpeg',
 ]
 
-const videos = [
+const videoNames = [
   'v1.mp4',
   'v2.mp4',
   'v3.mp4',
@@ -51,6 +59,49 @@ const videos = [
   'v8.mp4',
   'v9.mp4',
   'v10.mp4',
+]
+
+const videos: IVideo[] = [
+  {
+    data: 'v1.mp4',
+    thumbnail: 't1.jpeg',
+  },
+  {
+    data: 'v2.mp4',
+    thumbnail: 't2.jpeg',
+  },
+  {
+    data: 'v3.mp4',
+    thumbnail: 't3.jpeg',
+  },
+  {
+    data: 'v4.mp4',
+    thumbnail: 't4.jpeg',
+  },
+  {
+    data: 'v5.mp4',
+    thumbnail: 't5.jpeg',
+  },
+  {
+    data: 'v6.mp4',
+    thumbnail: 't6.jpeg',
+  },
+  {
+    data: 'v7.mp4',
+    thumbnail: 't7.jpeg',
+  },
+  {
+    data: 'v8.mp4',
+    thumbnail: 't8.jpeg',
+  },
+  {
+    data: 'v9.mp4',
+    thumbnail: 't9.jpeg',
+  },
+  {
+    data: 'v10.mp4',
+    thumbnail: 't10.jpeg',
+  },
 ]
 
 export const generateRandomPosts = (): IPost[] => {
@@ -93,15 +144,15 @@ export const generateRandomStories = (): IStoy[] => {
 
 export const generateRandomMedia = (): IMedia[] => {
   const tImages = [...images]
-  const tVideos = [...videos]
+  //const tVideos = [...videos]
 
   let RGMedia: IMedia[] = []
   const numberOfMedia = generateRandomNumber(7, 1)
   const randomIndexForVideo = generateRandomNumber(numberOfMedia, 0)
   for (let i = 0; i < numberOfMedia; ++i) {
     if (i === randomIndexForVideo) {
-      const rIndex = generateRandomNumber(tVideos.length, 0)
-      RGMedia.push({ type: 'video', data: tVideos.splice(rIndex, 1)[0] })
+      //const rIndex = generateRandomNumber(tVideos.length, 0)
+      //RGMedia.push({ type: 'video', data: tVideos.splice(rIndex, 1)[0] })
     } else {
       const rIndex = generateRandomNumber(tImages.length, 0)
       RGMedia.push({ type: 'image', data: tImages.splice(rIndex, 1)[0] })
@@ -117,11 +168,28 @@ const generateRandomNumber = (max?: number, min?: number) => {
 
 export const generateSearchData = () => {
   const tImgs = [...images]
-  const tVideos = [...videos]
+  //const tVideos = [...videos]
 
-  const sData = []
+  const sData: ISearchData[] = []
 
-  for (let i = 0; i < 10; ++i) {}
+  for (let i = 0; i < 16; ++i) {
+    //'t224' | 't422' | 't21' | 't12'
+    const rIntForType = generateRandomNumber(1, 4)
+    const rType: ISDType =
+      rIntForType === 1
+        ? 't224'
+        : rIntForType === 2
+        ? 't422'
+        : rIntForType === 3
+        ? 't21'
+        : 't12'
+
+    if (rType === 't422') {
+    } else if (rType === 't224') {
+    } else if (rType === 't12') {
+    } else if (rType === 't21') {
+    }
+  }
 
   return []
 }

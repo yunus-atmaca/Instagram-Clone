@@ -1,30 +1,36 @@
 declare global {}
 
-//search data type
-interface ISDType {
-  
+export interface IVideo {
+  data: string
+  thumbnail: string
 }
 
-interface ISearchData {
-
-}
-
-interface IMedia {
+export interface IMedia {
   type: 'video' | 'image'
   data: string
 }
 
-interface IPost {
+export interface IPost {
   user: IUser
   media: IMedia[]
 }
 
-interface IStoy {
+export interface IStoy {
   user: IUser
   media: IMedia[]
 }
 
-interface IUser {
+//search data type
+//t224: 'type|2|2|4' - t422: 'type|4|2|2' - t21: 'type|2|1' - t12: 'type|1|2'
+
+export type ISDType = 't224' | 't422' | 't21' | 't12'
+
+export interface ISearchData {
+  type: ISDType
+  data: IMedia[]
+}
+
+export interface IUser {
   gender: string
   name: Name
   location: Location
