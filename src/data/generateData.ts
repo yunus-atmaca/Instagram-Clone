@@ -1,11 +1,12 @@
 import {
   IMedia,
   IPost,
-  ISDType,
+  ISViewType,
   ISearchData,
   IStoy,
   IUser,
   IVideo,
+  ISDMedia,
 } from '@src/types/types'
 
 const users: IUser[] = require('./users.json').results
@@ -46,19 +47,6 @@ const images = [
   'sImg34.jpeg',
   'sImg35.jpeg',
   'sImg36.jpeg',
-]
-
-const videoNames = [
-  'v1.mp4',
-  'v2.mp4',
-  'v3.mp4',
-  'v4.mp4',
-  'v5.mp4',
-  'v6.mp4',
-  'v7.mp4',
-  'v8.mp4',
-  'v9.mp4',
-  'v10.mp4',
 ]
 
 const videos: IVideo[] = [
@@ -109,10 +97,9 @@ export const generateRandomPosts = (): IPost[] => {
 
   let RGPosts: IPost[] = []
 
-  //min 5 max 12 story
-  const numberOfPost = generateRandomNumber(24, 36)
+  const numberOfPost = generateRandomNumber(36, 24)
   for (let i = 0; i < numberOfPost; ++i) {
-    const rIndex = generateRandomNumber(tUsers.length, 0)
+    const rIndex = generateRandomNumber(tUsers.length - 1, 0)
     const rUsers = tUsers.splice(rIndex, 1)
 
     RGPosts.push({
@@ -129,9 +116,9 @@ export const generateRandomStories = (): IStoy[] => {
   let RGStories: IStoy[] = []
 
   //min 5 max 12 story
-  const numberOfStory = generateRandomNumber(13, 5)
+  const numberOfStory = generateRandomNumber(12, 5)
   for (let i = 0; i < numberOfStory; ++i) {
-    const rIndex = generateRandomNumber(tUsers.length, 0)
+    const rIndex = generateRandomNumber(tUsers.length - 1, 0)
     const rUsers = tUsers.splice(rIndex, 1)
 
     RGStories.push({
@@ -147,14 +134,14 @@ export const generateRandomMedia = (): IMedia[] => {
   //const tVideos = [...videos]
 
   let RGMedia: IMedia[] = []
-  const numberOfMedia = generateRandomNumber(7, 1)
+  const numberOfMedia = generateRandomNumber(6, 1)
   const randomIndexForVideo = generateRandomNumber(numberOfMedia, 0)
   for (let i = 0; i < numberOfMedia; ++i) {
     if (i === randomIndexForVideo) {
       //const rIndex = generateRandomNumber(tVideos.length, 0)
       //RGMedia.push({ type: 'video', data: tVideos.splice(rIndex, 1)[0] })
     } else {
-      const rIndex = generateRandomNumber(tImages.length, 0)
+      const rIndex = generateRandomNumber(tImages.length - 1, 0)
       RGMedia.push({ type: 'image', data: tImages.splice(rIndex, 1)[0] })
     }
   }
@@ -163,35 +150,79 @@ export const generateRandomMedia = (): IMedia[] => {
 }
 
 const generateRandomNumber = (max?: number, min?: number) => {
-  return Math.floor(Math.random() * (max || 10)) + (min || 0)
+  return Math.floor(Math.random() * ((max || 10) - (min || 0) + 1) + (min || 0))
 }
 
 export const generateSearchData = () => {
-  const tImgs = [...images]
-  //const tVideos = [...videos]
-
   const sData: ISearchData[] = []
 
   for (let i = 0; i < 16; ++i) {
     //'t224' | 't422' | 't21' | 't12'
-    const rIntForType = generateRandomNumber(1, 4)
-    const rType: ISDType =
-      rIntForType === 1
-        ? 't224'
-        : rIntForType === 2
-        ? 't422'
-        : rIntForType === 3
-        ? 't21'
-        : 't12'
+    let rType: ISViewType = 't221'
 
-    if (rType === 't422') {
-    } else if (rType === 't224') {
+    if (i % 3 === 0) rType = 't122'
+    else if (i % 5 === 0) rType = 't21'
+    else if (i % 7 === 0) rType = 't12'
+
+    if (rType === 't122') {
+      sData.push({ type: 't122', data: returnSDataMedia(4, 1) })
+    } else if (rType === 't221') {
+      sData.push({ type: 't221', data: returnSDataMedia(4, 4) })
     } else if (rType === 't12') {
+      sData.push({ type: 't12', data: returnSDataMedia(3, 1) })
     } else if (rType === 't21') {
+      sData.push({ type: 't21', data: returnSDataMedia(3, 3) })
     }
   }
 
-  return []
+  //console.debug(sData)
+
+  return sData
+}
+
+const returnSDataMedia = (
+  numberOfMedia: number,
+  videoIndex: number,
+): ISDMedia[] => {
+  let array: ISDMedia[] = []
+
+  for (let i = 1; i <= numberOfMedia; ++i) {
+    const rUser = getRandomUser()
+
+    if (i === videoIndex || Math.random() < 0.5) {
+      //Video
+      const rVideo = getRandomVideo()
+      array.push({
+        user: rUser,
+        data: [{ type: 'video', data: rVideo }],
+      })
+    } else {
+      //Images
+      const numberOfImages = generateRandomNumber(1, 5)
+      let imgArray: IMedia[] = []
+      for (let j = 0; j < numberOfImages; ++j) {
+        imgArray.push({ type: 'image', data: getRandomImg() })
+      }
+      array.push({
+        user: rUser,
+        data: imgArray,
+      })
+    }
+  }
+
+  return array
+}
+
+const getRandomVideo = () => {
+  return videos[generateRandomNumber(0, videos.length - 1)]
+}
+
+const getRandomImg = () => {
+  return images[generateRandomNumber(0, images.length - 1)]
+}
+
+const getRandomUser = () => {
+  return users[generateRandomNumber(0, users.length - 1)]
 }
 
 export const getImg = (imgName: string) => {

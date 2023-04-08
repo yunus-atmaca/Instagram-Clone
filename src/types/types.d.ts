@@ -7,7 +7,7 @@ export interface IVideo {
 
 export interface IMedia {
   type: 'video' | 'image'
-  data: string
+  data: string | IVideo
 }
 
 export interface IPost {
@@ -21,13 +21,16 @@ export interface IStoy {
 }
 
 //search data type
-//t224: 'type|2|2|4' - t422: 'type|4|2|2' - t21: 'type|2|1' - t12: 'type|1|2'
-
-export type ISDType = 't224' | 't422' | 't21' | 't12'
-
-export interface ISearchData {
-  type: ISDType
+//t221: 'type|2|2|1' - t122: 'type|1|2|2' - t21: 'type|2|1' - t12: 'type|1|2'
+export type ISViewType = 't221' | 't122' | 't21' | 't12'
+//search data
+export type ISDMedia = {
+  user: IUser
   data: IMedia[]
+}
+export interface ISearchData {
+  type: ISViewType
+  data: ISDMedia[]
 }
 
 export interface IUser {
