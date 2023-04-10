@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Image } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
 
@@ -10,10 +10,14 @@ type Props = {
 }
 
 const LPImage: FC<Props> = ({ name }) => {
+  useEffect(() => {
+  }, [])
+
   return (
     <Image
       style={{
         width: STYLES.S_WIDTH - moderateScale(32),
+        maxHeight: STYLES.W_HEIGHT - moderateScale(12 + 5 * 48),
       }}
       source={getImg(name)}
     />

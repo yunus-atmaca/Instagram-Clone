@@ -7,7 +7,9 @@ import { useAppSelector } from '@src/types/store'
 import { COLORS } from '@src/res'
 
 import LPImage from './LPImage'
+import LPVideo from './LPVideo'
 import Footer from './Footer'
+import { IVideo } from '@src/types/types'
 
 type Props = {}
 
@@ -33,7 +35,9 @@ const LongPressDetails: FC<Props> = () => {
           </Text>
         </View>
         <Image />
-        {data?.data[0].type === 'video' ? null : (
+        {data?.data[0].type === 'video' ? (
+          <LPVideo v={data?.data[0].data as IVideo} />
+        ) : (
           <LPImage name={data?.data[0].data as string} />
         )}
         <Footer />
@@ -49,7 +53,7 @@ const styles = ScaledSheet.create({
     right: 0,
     bottom: 0,
     top: 0,
-    backgroundColor: 'red',
+    //backgroundColor: 'red',
     paddingHorizontal: '16@ms',
     paddingVertical: '12@ms',
     alignItems: 'center',

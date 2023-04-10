@@ -332,6 +332,34 @@ export const getThumbnail = (tName: string) => {
   }
 }
 
+export const getVideo = (vName: string) => {
+  switch (vName) {
+    case 'v1.mp4':
+      return require('../../assets/videos/v1.mp4')
+    case 'v2.mp4':
+      return require('../../assets/videos/v2.mp4')
+    case 'v3.mp4':
+      return require('../../assets/videos/v3.mp4')
+    case 'v4.mp4':
+      return require('../../assets/videos/v4.mp4')
+    case 'v5.mp4':
+      return require('../../assets/videos/v5.mp4')
+    case 'v6.mp4':
+      return require('../../assets/videos/v6.mp4')
+    case 'v7.mp4':
+      return require('../../assets/videos/v7.mp4')
+    case 'v8.mp4':
+      return require('../../assets/videos/v8.mp4')
+    case 'v9.mp4':
+      return require('../../assets/videos/v9.mp4')
+    case 'v10.mp4':
+      return require('../../assets/videos/v10.mp4')
+
+    default:
+      return require('../../assets/videos/v1.mp4')
+  }
+}
+
 const generateRandomNumber = (max?: number, min?: number) => {
   return Math.floor(Math.random() * ((max || 10) - (min || 0) + 1) + (min || 0))
 }
