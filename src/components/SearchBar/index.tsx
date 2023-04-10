@@ -1,15 +1,17 @@
 import React, { FC } from 'react'
-import { TextInput, View } from 'react-native'
+import { StyleProp, TextInput, View, ViewStyle } from 'react-native'
 import { ScaledSheet, moderateScale } from 'react-native-size-matters'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
 import { COLORS, STYLES } from '@src/res'
 
-type Props = {}
+type Props = {
+  contentContainer?: StyleProp<ViewStyle>
+}
 
-const SearchBar: FC<Props> = ({}) => {
+const SearchBar: FC<Props> = ({ contentContainer }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, contentContainer]}>
       <View style={styles.iContainer}>
         <View style={styles.icon}>
           <EvilIcons name="search" size={24} />

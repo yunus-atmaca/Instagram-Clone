@@ -1,9 +1,10 @@
 import React, { FC } from 'react'
-import { StyleProp, ViewStyle, View } from 'react-native'
+import { View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 
 import { ISearchData } from '@src/types/types'
 import { STYLES } from '@src/res'
+import Slot from './Slot'
 
 type Props = {
   m: ISearchData
@@ -13,46 +14,21 @@ type Props = {
 const SINGLE_W = STYLES.S_WIDTH / 3
 
 const TypeHas5: FC<Props> = ({ m, vPosition }) => {
-  const getSlotS = (has: boolean, numberOfSlot?: number) => {
-    let def: StyleProp<ViewStyle> = {
-      paddingTop: 2,
-      width: SINGLE_W,
-      height: (numberOfSlot ? 2 : 1) * SINGLE_W,
-      backgroundColor: 'black',
-    }
-    let pH: StyleProp<ViewStyle> = { paddingHorizontal: 2 }
-    let pS: StyleProp<ViewStyle> = { paddingStart: 2 }
-
-    return [def, has ? pH : pS]
-  }
-
   return (
     <View style={styles.container}>
       {vPosition === 'prefix' && (
-        <View style={getSlotS(false, 2)}>
-          <View style={styles.img} />
-        </View>
+        <Slot has={false} slotNumber={2} media={m.data[0].data} />
       )}
       <View>
-        <View style={getSlotS(false)}>
-          <View style={styles.img} />
-        </View>
-        <View style={getSlotS(false)}>
-          <View style={styles.img} />
-        </View>
+        <Slot has={false} media={m.data[1].data} />
+        <Slot has={false} media={m.data[2].data} />
       </View>
       <View>
-        <View style={getSlotS(vPosition === 'prefix')}>
-          <View style={styles.img} />
-        </View>
-        <View style={getSlotS(vPosition === 'prefix')}>
-          <View style={styles.img} />
-        </View>
+        <Slot has={vPosition === 'prefix'} media={m.data[3].data} />
+        <Slot has={vPosition === 'prefix'} media={m.data[4].data} />
       </View>
       {vPosition === 'postfix' && (
-        <View style={getSlotS(true, 2)}>
-          <View style={styles.img} />
-        </View>
+        <Slot has={true} slotNumber={2} media={m.data[0].data} />
       )}
     </View>
   )
@@ -62,14 +38,9 @@ const styles = ScaledSheet.create({
   container: {
     height: SINGLE_W * 2,
     width: STYLES.S_WIDTH,
-    backgroundColor: 'green',
+    //backgroundColor: 'green',
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  img: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'red',
   },
 })
 

@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 
 import { ISearchData } from '@src/types/types'
-import { STYLES } from '@src/res'
 
 type Props = {
   m: ISearchData

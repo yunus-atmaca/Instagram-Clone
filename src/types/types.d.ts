@@ -1,7 +1,7 @@
 declare global {}
 
 export interface IVideo {
-  data: string
+  name: string
   thumbnail: string
 }
 

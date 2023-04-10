@@ -51,43 +51,43 @@ const images = [
 
 const videos: IVideo[] = [
   {
-    data: 'v1.mp4',
+    name: 'v1.mp4',
     thumbnail: 't1.jpeg',
   },
   {
-    data: 'v2.mp4',
+    name: 'v2.mp4',
     thumbnail: 't2.jpeg',
   },
   {
-    data: 'v3.mp4',
+    name: 'v3.mp4',
     thumbnail: 't3.jpeg',
   },
   {
-    data: 'v4.mp4',
+    name: 'v4.mp4',
     thumbnail: 't4.jpeg',
   },
   {
-    data: 'v5.mp4',
+    name: 'v5.mp4',
     thumbnail: 't5.jpeg',
   },
   {
-    data: 'v6.mp4',
+    name: 'v6.mp4',
     thumbnail: 't6.jpeg',
   },
   {
-    data: 'v7.mp4',
+    name: 'v7.mp4',
     thumbnail: 't7.jpeg',
   },
   {
-    data: 'v8.mp4',
+    name: 'v8.mp4',
     thumbnail: 't8.jpeg',
   },
   {
-    data: 'v9.mp4',
+    name: 'v9.mp4',
     thumbnail: 't9.jpeg',
   },
   {
-    data: 'v10.mp4',
+    name: 'v10.mp4',
     thumbnail: 't10.jpeg',
   },
 ]
@@ -149,10 +149,6 @@ export const generateRandomMedia = (): IMedia[] => {
   return RGMedia
 }
 
-const generateRandomNumber = (max?: number, min?: number) => {
-  return Math.floor(Math.random() * ((max || 10) - (min || 0) + 1) + (min || 0))
-}
-
 export const generateSearchData = () => {
   const sData: ISearchData[] = []
 
@@ -165,48 +161,51 @@ export const generateSearchData = () => {
     else if (i % 7 === 0) rType = 't12'
 
     if (rType === 't122') {
-      sData.push({ type: 't122', data: returnSDataMedia(4, 1) })
+      sData.push({ type: 't122', data: returnSDataMedia(5) })
     } else if (rType === 't221') {
-      sData.push({ type: 't221', data: returnSDataMedia(4, 4) })
+      sData.push({ type: 't221', data: returnSDataMedia(5) })
     } else if (rType === 't12') {
-      sData.push({ type: 't12', data: returnSDataMedia(3, 1) })
+      sData.push({ type: 't12', data: returnSDataMedia(3) })
     } else if (rType === 't21') {
-      sData.push({ type: 't21', data: returnSDataMedia(3, 3) })
+      sData.push({ type: 't21', data: returnSDataMedia(3) })
     }
   }
-
-  //console.debug(sData)
 
   return sData
 }
 
-const returnSDataMedia = (
-  numberOfMedia: number,
-  videoIndex: number,
-): ISDMedia[] => {
+const returnSDataMedia = (numberOfMedia: number): ISDMedia[] => {
   let array: ISDMedia[] = []
 
   for (let i = 1; i <= numberOfMedia; ++i) {
     const rUser = getRandomUser()
 
-    if (i === videoIndex || Math.random() < 0.5) {
-      //Video
+    if (i === 1) {
       const rVideo = getRandomVideo()
       array.push({
         user: rUser,
         data: [{ type: 'video', data: rVideo }],
       })
     } else {
-      //Images
-      const numberOfImages = generateRandomNumber(1, 5)
-      let imgArray: IMedia[] = []
-      for (let j = 0; j < numberOfImages; ++j) {
-        imgArray.push({ type: 'image', data: getRandomImg() })
+      //video or image
+      if (Math.random() < 0.5) {
+        const rVideo = getRandomVideo()
+        array.push({
+          user: rUser,
+          data: [{ type: 'video', data: rVideo }],
+        })
+      } else {
+        //Images
+        const numberOfImages = generateRandomNumber(1, 5)
+        let imgArray: IMedia[] = []
+        for (let j = 0; j < numberOfImages; ++j) {
+          imgArray.push({ type: 'image', data: getRandomImg() })
+        }
+        array.push({
+          user: rUser,
+          data: imgArray,
+        })
       }
-      array.push({
-        user: rUser,
-        data: imgArray,
-      })
     }
   }
 
@@ -214,15 +213,15 @@ const returnSDataMedia = (
 }
 
 const getRandomVideo = () => {
-  return videos[generateRandomNumber(0, videos.length - 1)]
+  return videos[generateRandomNumber(videos.length - 1, 0)]
 }
 
 const getRandomImg = () => {
-  return images[generateRandomNumber(0, images.length - 1)]
+  return images[generateRandomNumber(images.length - 1, 0)]
 }
 
 const getRandomUser = () => {
-  return users[generateRandomNumber(0, users.length - 1)]
+  return users[generateRandomNumber(users.length - 1, 0)]
 }
 
 export const getImg = (imgName: string) => {
@@ -303,4 +302,36 @@ export const getImg = (imgName: string) => {
     default:
       return require('../../assets/images/sImg1.jpeg')
   }
+}
+
+export const getThumbnail = (tName: string) => {
+  switch (tName) {
+    case 't1.jpeg':
+      return require('../../assets/videos/t1.jpeg')
+    case 't2.jpeg':
+      return require('../../assets/videos/t2.jpeg')
+    case 't3.jpeg':
+      return require('../../assets/videos/t3.jpeg')
+    case 't4.jpeg':
+      return require('../../assets/videos/t4.jpeg')
+    case 't5.jpeg':
+      return require('../../assets/videos/t5.jpeg')
+    case 't6.jpeg':
+      return require('../../assets/videos/t6.jpeg')
+    case 't7.jpeg':
+      return require('../../assets/videos/t7.jpeg')
+    case 't8.jpeg':
+      return require('../../assets/videos/t8.jpeg')
+    case 't9.jpeg':
+      return require('../../assets/videos/t9.jpeg')
+    case 't10.jpeg':
+      return require('../../assets/videos/t10.jpeg')
+
+    default:
+      return require('../../assets/videos/t1.jpeg')
+  }
+}
+
+const generateRandomNumber = (max?: number, min?: number) => {
+  return Math.floor(Math.random() * ((max || 10) - (min || 0) + 1) + (min || 0))
 }

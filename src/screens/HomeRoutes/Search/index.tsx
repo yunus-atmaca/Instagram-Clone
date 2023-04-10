@@ -23,13 +23,14 @@ const Search: FC<HRSScreenPropsC<'SearchTab', 'Search'>> = () => {
 
   return (
     <View style={styles.container}>
-      <SearchBar />
       <FlashList<ISearchData>
         data={media}
         renderItem={renderMedia}
         keyExtractor={(_, i) => 'm-' + i}
         showsVerticalScrollIndicator={false}
-        //estimatedItemSize={STYLES.S_WIDTH / 2}
+        ListHeaderComponent={<SearchBar contentContainer={styles.search} />}
+        estimatedItemSize={(STYLES.S_WIDTH / 3) * 2}
+        bounces={false}
       />
     </View>
   )
@@ -39,6 +40,9 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
+  },
+  search: {
+    marginBottom: '8@ms',
   },
 })
 export default Search
