@@ -5,5 +5,15 @@ import TabBar from './TabBar'
 import Stories from './Stories'
 import Posts from './Posts'
 import SearchBar from './SearchBar'
+import LongPressDetails from './LongPressDetails'
 
-export { Input, Button, Header, TabBar, Stories, Posts, SearchBar }
+export {
+  LongPressDetails,
+  Input,
+  Button,
+  Header,
+  TabBar,
+  Stories,
+  Posts,
+  SearchBar,
+}

@@ -1,18 +1,29 @@
-import React, { FC } from 'react'
-import { View } from 'react-native'
+import React, { FC, useEffect, useState } from 'react'
+import { TouchableOpacity, View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 import { FlashList, FlashListProps } from '@shopify/flash-list'
 
 import { HRSScreenPropsC } from '@src/types/navigation'
 import { COLORS, STYLES } from '@src/res'
-import { SearchBar } from '@src/components'
+import { SearchBar, LongPressDetails } from '@src/components'
 import { generateSearchData } from '@src/data/generateData'
-import { ISearchData } from '@src/types/types'
+import { ISearchData, IMedia } from '@src/types/types'
 
 import Media from './Media'
+import { useAppDispatch } from '@src/types/store'
+import { setTouch } from '@src/store/controllers/touch'
+
+const MEDIA = generateSearchData()
 
 const Search: FC<HRSScreenPropsC<'SearchTab', 'Search'>> = () => {
-  const media = generateSearchData()
+  const dispatch = useAppDispatch()
+  const [data, setData] = useState<ISearchData[]>([])
+
+  useEffect(() => {
+    if (data.length === 0) {
+      setData(MEDIA)
+    }
+  }, [])
 
   const renderMedia: FlashListProps<ISearchData>['renderItem'] = ({
     item,
@@ -21,10 +32,24 @@ const Search: FC<HRSScreenPropsC<'SearchTab', 'Search'>> = () => {
     return <Media m={item} index={index} />
   }
 
+  const _onLongPress = () => {
+    console.debug('Main _onLongPress')
+    dispatch(setTouch('long'))
+  }
+
+  const _onPressOut = () => {
+    console.debug('Main _onPressOut')
+    dispatch(setTouch('out'))
+  }
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      activeOpacity={1}
+      onPressOut={_onPressOut}
+      onLongPress={_onLongPress}
+      style={styles.container}>
       <FlashList<ISearchData>
-        data={media}
+        data={data}
         renderItem={renderMedia}
         keyExtractor={(_, i) => 'm-' + i}
         showsVerticalScrollIndicator={false}
@@ -32,7 +57,8 @@ const Search: FC<HRSScreenPropsC<'SearchTab', 'Search'>> = () => {
         estimatedItemSize={(STYLES.S_WIDTH / 3) * 2}
         bounces={false}
       />
-    </View>
+      <LongPressDetails />
+    </TouchableOpacity>
   )
 }
 
