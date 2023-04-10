@@ -8,15 +8,14 @@ type Props = {
   index: number
 }
 
-const SINGLE_W = STYLES.S_WIDTH / 3
 import TypeHas5 from './TypeHas5'
+import TypeHas3 from './TypeHas3'
 
 const Media: FC<Props> = ({ m, index }) => {
-  //console.debug('ssstype -> ', m.type)
-
   if (m.type === 't122') return <TypeHas5 m={m} vPosition="prefix" />
   if (m.type === 't221') return <TypeHas5 m={m} vPosition="postfix" />
-
+  if (m.type === 't21') return <TypeHas3 vPosition="postfix" m={m} />
+  if (m.type === 't12') return <TypeHas3 vPosition="prefix" m={m} />
   return null
 }
 

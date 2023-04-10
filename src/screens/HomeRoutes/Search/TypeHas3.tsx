@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { StyleProp, ViewStyle, View } from 'react-native'
+import { StyleProp, View, ViewProps, ViewStyle } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 
 import { ISearchData } from '@src/types/types'
@@ -12,11 +12,11 @@ type Props = {
 
 const SINGLE_W = STYLES.S_WIDTH / 3
 
-const TypeHas5: FC<Props> = ({ m, vPosition }) => {
+const TypeHas3: FC<Props> = ({ m, vPosition }) => {
   const getSlotS = (has: boolean, numberOfSlot?: number) => {
     let def: StyleProp<ViewStyle> = {
       paddingTop: 2,
-      width: SINGLE_W,
+      width: (numberOfSlot ? 2 : 1) * SINGLE_W,
       height: (numberOfSlot ? 2 : 1) * SINGLE_W,
       backgroundColor: 'black',
     }
@@ -29,18 +29,10 @@ const TypeHas5: FC<Props> = ({ m, vPosition }) => {
   return (
     <View style={styles.container}>
       {vPosition === 'prefix' && (
-        <View style={getSlotS(false, 2)}>
+        <View style={getSlotS(false, 4)}>
           <View style={styles.img} />
         </View>
       )}
-      <View>
-        <View style={getSlotS(false)}>
-          <View style={styles.img} />
-        </View>
-        <View style={getSlotS(false)}>
-          <View style={styles.img} />
-        </View>
-      </View>
       <View>
         <View style={getSlotS(vPosition === 'prefix')}>
           <View style={styles.img} />
@@ -50,7 +42,7 @@ const TypeHas5: FC<Props> = ({ m, vPosition }) => {
         </View>
       </View>
       {vPosition === 'postfix' && (
-        <View style={getSlotS(true, 2)}>
+        <View style={getSlotS(true, 4)}>
           <View style={styles.img} />
         </View>
       )}
@@ -73,4 +65,4 @@ const styles = ScaledSheet.create({
   },
 })
 
-export default TypeHas5
+export default TypeHas3
