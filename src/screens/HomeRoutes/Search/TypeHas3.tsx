@@ -17,14 +17,14 @@ const TypeHas3: FC<Props> = ({ m, vPosition }) => {
   return (
     <View style={styles.container}>
       {vPosition === 'prefix' && (
-        <Slot has={false} slotNumber={4} media={m.data[0].data} />
+        <Slot has={false} slotNumber={4} media={m.data[0]} />
       )}
       <View>
-        <Slot has={vPosition === 'prefix'} media={m.data[1].data} />
-        <Slot has={vPosition === 'prefix'} media={m.data[2].data} />
+        <Slot has={vPosition === 'prefix'} media={m.data[1]} />
+        <Slot has={vPosition === 'prefix'} media={m.data[2]} />
       </View>
       {vPosition === 'postfix' && (
-        <Slot has={true} slotNumber={4} media={m.data[0].data} />
+        <Slot has={true} slotNumber={4} media={m.data[0]} />
       )}
     </View>
   )

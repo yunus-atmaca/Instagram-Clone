@@ -4,13 +4,12 @@ import { ISearchData } from '@src/types/types'
 
 type Props = {
   m: ISearchData
-  index: number
 }
 
 import TypeHas5 from './TypeHas5'
 import TypeHas3 from './TypeHas3'
 
-const Media: FC<Props> = ({ m, index }) => {
+const Media: FC<Props> = ({ m }) => {
   if (m.type === 't122') return <TypeHas5 m={m} vPosition="prefix" />
   if (m.type === 't221') return <TypeHas5 m={m} vPosition="postfix" />
   if (m.type === 't21') return <TypeHas3 vPosition="postfix" m={m} />

@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { TouchEventType } from '@src/types/store'
-import { IMedia } from '@src/types/types'
+import { ISDMedia } from '@src/types/types'
 
 const name = 'appHeader'
 
 export type State = {
   event: TouchEventType
-  data: IMedia[] | null
+  data: ISDMedia | null
 }
 
 const initialState: State = {
@@ -24,7 +24,7 @@ const {
     setTouch: (state, action: PayloadAction<TouchEventType>) => {
       return { ...state, event: action.payload }
     },
-    setData: (state, action: PayloadAction<IMedia[]>) => {
+    setData: (state, action: PayloadAction<ISDMedia>) => {
       return { ...state, data: action.payload }
     },
   },

@@ -1,17 +1,11 @@
 import React, { FC } from 'react'
-import {
-  View,
-  StyleProp,
-  ViewStyle,
-  Image,
-  ImageStyle,
-} from 'react-native'
+import { View, StyleProp, ViewStyle, Image, ImageStyle } from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { ScaledSheet } from 'react-native-size-matters'
 
 import { STYLES } from '@src/res'
-import { IVideo, IMedia } from '@src/types/types'
+import { IVideo, IMedia, ISDMedia } from '@src/types/types'
 import { getImg, getThumbnail } from '@src/data/generateData'
 import { useAppDispatch } from '@src/types/store'
 import { setData } from '@src/store/controllers/touch'
@@ -19,7 +13,7 @@ import { setData } from '@src/store/controllers/touch'
 type Props = {
   slotNumber?: number
   has: boolean
-  media: IMedia[]
+  media: ISDMedia
 }
 
 const SINGLE_W = STYLES.S_WIDTH / 3
@@ -41,9 +35,9 @@ const Slot: FC<Props> = ({ media, slotNumber = 1, has }) => {
   }
 
   const getIcon = () => {
-    if (media[0].type === 'video')
+    if (media.data[0].type === 'video')
       return <Entypo name="video" size={18} color={'white'} />
-    if (media[0].type === 'image' && media.length > 1)
+    if (media.data[0].type === 'image' && media.data.length > 1)
       return <Ionicons name="images" size={18} color={'white'} />
     return null
   }
@@ -69,28 +63,22 @@ const Slot: FC<Props> = ({ media, slotNumber = 1, has }) => {
         return false
       }}>
       <View style={getSlotS()}>
-        <Image
-          source={
-            media[0].type === 'video'
-              ? getThumbnail((media[0].data as IVideo).thumbnail)
-              : getImg(media[0].data as string)
-          }
-          style={getImgS()}
-          resizeMode={'cover'}
-        />
+        {
+          <Image
+            source={
+              media.data[0].type === 'video'
+                ? getThumbnail((media.data[0].data as IVideo).thumbnail)
+                : getImg(media.data[0].data as string)
+            }
+            style={getImgS()}
+            resizeMode={'cover'}
+          />
+        }
         <View style={styles.icon}>{getIcon()}</View>
       </View>
     </View>
   )
 }
-
-/*
-
-activeOpacity={0.75}
-      onPressOut={_onPressOut}
-      onLongPress={_onLongPress}
-
-*/
 
 const styles = ScaledSheet.create({
   icon: {

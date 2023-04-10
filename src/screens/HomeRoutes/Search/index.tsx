@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 import { FlashList, FlashListProps } from '@shopify/flash-list'
 
@@ -7,7 +7,7 @@ import { HRSScreenPropsC } from '@src/types/navigation'
 import { COLORS, STYLES } from '@src/res'
 import { SearchBar, LongPressDetails } from '@src/components'
 import { generateSearchData } from '@src/data/generateData'
-import { ISearchData, IMedia } from '@src/types/types'
+import { ISearchData } from '@src/types/types'
 
 import Media from './Media'
 import { useAppDispatch } from '@src/types/store'
@@ -29,18 +29,12 @@ const Search: FC<HRSScreenPropsC<'SearchTab', 'Search'>> = () => {
     item,
     index,
   }) => {
-    return <Media m={item} index={index} />
+    return <Media m={item} />
   }
 
-  const _onLongPress = () => {
-    console.debug('Main _onLongPress')
-    dispatch(setTouch('long'))
-  }
+  const _onLongPress = () => dispatch(setTouch('long'))
 
-  const _onPressOut = () => {
-    console.debug('Main _onPressOut')
-    dispatch(setTouch('out'))
-  }
+  const _onPressOut = () => dispatch(setTouch('out'))
 
   return (
     <TouchableOpacity
