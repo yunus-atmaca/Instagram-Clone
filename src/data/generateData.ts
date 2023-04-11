@@ -49,7 +49,7 @@ const images = [
   'sImg36.jpeg',
 ]
 
-const videos: IVideo[] = [
+export const videos: IVideo[] = [
   {
     name: 'v1.mp4',
     thumbnail: 't1.jpeg',
@@ -220,7 +220,7 @@ const getRandomImg = () => {
   return images[generateRandomNumber(images.length - 1, 0)]
 }
 
-const getRandomUser = () => {
+export const getRandomUser = () => {
   return users[generateRandomNumber(users.length - 1, 0)]
 }
 

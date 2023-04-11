@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Image, Text, View } from 'react-native'
+import { Image, View } from 'react-native'
 import PagerView from 'react-native-pager-view'
 import { ScaledSheet } from 'react-native-size-matters'
 
@@ -15,7 +15,7 @@ const Posts: FC<Props> = ({ p }) => {
   const renderPage = (media: IMedia, index: number) => {
     return (
       <View style={styles.page} key={index}>
-        <Image source={getImg(media.data)} />
+        <Image source={getImg(media.data as string)} />
       </View>
     )
   }
