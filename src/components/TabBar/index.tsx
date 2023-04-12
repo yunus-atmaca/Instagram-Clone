@@ -100,7 +100,7 @@ const styles = ScaledSheet.create({
     width: '20@ms',
     height: '20@ms',
     borderRadius: 100,
-    borderColor: COLORS.grey,
+    borderColor: COLORS.black,
     borderWidth: 0.5,
   },
 })
