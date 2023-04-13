@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Text, View } from 'react-native'
+import { TouchableOpacity, Text, View } from 'react-native'
 import { ScaledSheet, moderateScale } from 'react-native-size-matters'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
@@ -13,15 +13,15 @@ const B_Button_WIDTH = (STYLES.W_WIDTH - moderateScale(32 + 24 + 28)) / 2
 const Buttons: FC<Props> = ({}) => {
   return (
     <View style={styles.container}>
-      <View style={[styles.button, { width: B_Button_WIDTH }]}>
+      <TouchableOpacity style={[styles.button, { width: B_Button_WIDTH }]}>
         <Text style={styles.text}>Edit profile</Text>
-      </View>
-      <View style={[styles.button, { width: B_Button_WIDTH }]}>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.button, { width: B_Button_WIDTH }]}>
         <Text style={styles.text}>Share profile</Text>
-      </View>
-      <View style={[styles.button, { width: moderateScale(32) }]}>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.button, { width: moderateScale(32) }]}>
         <AntDesign name="adduser" size={16} />
-      </View>
+      </TouchableOpacity>
     </View>
   )
 }

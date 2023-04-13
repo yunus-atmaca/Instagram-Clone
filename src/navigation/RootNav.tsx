@@ -10,7 +10,7 @@ const RootNav = () => {
   const user = useAppSelector(s => s.authController.user)
 
   const _onStateChange = (state: NavigationState | undefined) => {
-    console.debug('navigation state -> ', state?.routeNames, state?.index)
+    //console.debug('navigation state -> ', state?.routeNames, state?.index)
   }
 
   if (user) {

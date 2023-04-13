@@ -1,10 +1,8 @@
-import React, { FC, useState } from 'react'
-import { LayoutChangeEvent, View } from 'react-native'
+import React, { FC } from 'react'
+import { View, ListRenderItem } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
-import Animated, {
-  useAnimatedScrollHandler,
-  useSharedValue,
-} from 'react-native-reanimated'
+import { MaterialTabBar, Tabs } from 'react-native-collapsible-tab-view'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 import { COLORS } from '@src/res'
 import { HRSScreenPropsC } from '@src/types/navigation'
@@ -12,36 +10,63 @@ import { useAppSelector } from '@src/types/store'
 
 import Header from './Header'
 import PersistentHeader from './PersistentHeader'
-import { USER_INFO_HEIGHT, BUTTONS_HEIGHT } from './Constant'
+import {
+  USER_INFO_HEIGHT,
+  BUTTONS_HEIGHT,
+  PERSISTENT_HEADER_HEIGHT,
+} from './Constant'
+import SelfMedia from './Tabs/SelfMedia'
+import TaggedMedia from './Tabs/TaggedMedia'
+import TabBar from './Tabs/TabBar'
+import { TabBarProps } from 'react-native-tab-view'
+import { TabName } from 'react-native-collapsible-tab-view/lib/typescript/src/types'
 
 const Profile: FC<HRSScreenPropsC<'ProfileTab', 'Profile'>> = () => {
   const user = useAppSelector(s => s.authController.user!)
-  const [pageHeight, setPH] = useState(0)
-
-  const scrollY = useSharedValue(0)
-  const scrollHandler = useAnimatedScrollHandler({
-    onScroll: e => {
-      scrollY.value = e.contentOffset.y
-    },
-  })
-
-  const _onLayout = (e: LayoutChangeEvent) => {
-    setPH(e.nativeEvent.layout.height)
-  }
 
   return (
-    <View onLayout={_onLayout} style={styles.container}>
-      <Animated.ScrollView
-        scrollEnabled={pageHeight > 0}
-        scrollEventThrottle={16}
-        showsVerticalScrollIndicator={false}
-        horizontal={false}
-        contentContainerStyle={{
-          minHeight: pageHeight + USER_INFO_HEIGHT + BUTTONS_HEIGHT,
-        }}
-        onScroll={scrollHandler}></Animated.ScrollView>
+    <View style={styles.container}>
+      <Tabs.Container
+        //renderTabBar={props => <TabBar {...props} />}
+        /*renderTabBar={props => {
+          console.debug('props -> ', props)
+          return <TabBar {...props} />
+        }}*/
+        renderTabBar={props => {
+          const { focusedTab } = props
 
-      <Header scrollValue={scrollY} avatar={user.picture.large} />
+          console.debug('focusedTab -> ', props)
+          return (
+            <MaterialTabBar
+              {...props}
+              TabItemComponent={() => (
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    //backgroundColor:'red',
+                    height:40
+                  }}>
+                  <FontAwesome5
+                    name="house-user"
+                    size={20}
+                    //color={isFocused ? 'black' : 'grey'}
+                  />
+                </View>
+              )}
+            />
+          )
+        }}
+        headerHeight={USER_INFO_HEIGHT + BUTTONS_HEIGHT}
+        renderHeader={() => <Header avatar={user.picture.large} />}>
+        <Tabs.Tab name="self">
+          <SelfMedia />
+        </Tabs.Tab>
+        <Tabs.Tab name="tag">
+          <TaggedMedia />
+        </Tabs.Tab>
+      </Tabs.Container>
       <PersistentHeader username={user.name.first} />
     </View>
   )
@@ -51,6 +76,7 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
+    paddingTop: PERSISTENT_HEADER_HEIGHT,
   },
 })
 
