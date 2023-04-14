@@ -20,8 +20,8 @@ const PersistentHeader: FC<Props> = ({ username }) => {
         <MaterialIcons name="keyboard-arrow-down" size={18} />
       </View>
       <View style={styles.content}>
-        <Octicons style={{ marginEnd: 18 }} name="three-bars" size={24} />
-        <FontAwesome name="plus-square-o" size={24} />
+        <FontAwesome style={{ marginEnd: 18 }} name="plus-square-o" size={24} />
+        <Octicons name="three-bars" size={24} />
       </View>
     </View>
   )
