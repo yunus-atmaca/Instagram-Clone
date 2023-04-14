@@ -1,27 +1,19 @@
-import React, {
-  FC,
-  useRef,
-  useMemo,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import React, { FC, useRef, useCallback } from 'react'
 import { View, Text } from 'react-native'
-import { ScaledSheet } from 'react-native-size-matters'
+import { ScaledSheet, moderateScale } from 'react-native-size-matters'
 import BottomSheet from '@gorhom/bottom-sheet'
-import { STYLES } from '@src/res'
+import { COLORS, STYLES } from '@src/res'
 import { Portal } from '@gorhom/portal'
-import { IItem, getIconByName } from './items'
+import { IBSItem, getIconByName } from './items'
 
 type Props = {
   open: boolean
-  items: IItem[]
+  bs: IBSItem
   onCloseBottomSheet: (v: boolean) => void
 }
 
-const BSheet: FC<Props> = ({ open, items, onCloseBottomSheet }) => {
+const BSheet: FC<Props> = ({ open, bs, onCloseBottomSheet }) => {
   const bottomSheetRef = useRef<BottomSheet>(null)
-  const snapPoints = useMemo(() => ['60%'], [])
   const handleSheetChanges = useCallback((index: number) => {
     console.log('handleSheetChanges', index)
   }, [])
@@ -40,11 +32,16 @@ const BSheet: FC<Props> = ({ open, items, onCloseBottomSheet }) => {
           enablePanDownToClose
           ref={bottomSheetRef}
           index={0}
-          snapPoints={snapPoints}
+          snapPoints={bs.snapPoint || ['55%']}
           onChange={handleSheetChanges}>
           <View style={styles.contentContainer}>
-            {items.map((item, i) => {
-              return <Item item={item} i={i} />
+            {bs.title && (
+              <View style={styles.cTitle}>
+                <Text style={styles.title}>{bs.title}</Text>
+              </View>
+            )}
+            {bs.items.map((item, i) => {
+              return <Item has={bs.hasLineSeparator} item={item} i={i} />
             })}
           </View>
         </BottomSheet>
@@ -53,11 +50,26 @@ const BSheet: FC<Props> = ({ open, items, onCloseBottomSheet }) => {
   )
 }
 
-const Item: FC<{ item: IItem; i: number }> = ({ item, i }) => {
+const Item: FC<{ item: string; i: number; has?: boolean }> = ({
+  item,
+  i,
+  has,
+}) => {
   return (
     <View key={'i-' + i} style={styles.item}>
-      {getIconByName(item.name)}
-      <Text style={styles.text}>{item.name}</Text>
+      {getIconByName(item)}
+      <View
+        style={[
+          styles.cText,
+          has
+            ? {
+                borderBottomWidth: 0.2,
+                borderBottomColor: COLORS.grey1,
+              }
+            : {},
+        ]}>
+        <Text style={styles.text}>{item}</Text>
+      </View>
     </View>
   )
 }
@@ -78,15 +90,34 @@ const styles = ScaledSheet.create({
   },
   item: {
     width: '100%',
-    height: '48@ms',
+    height: '40@ms',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  cText: {
+    marginStart: '10@ms',
+    height: '100%',
+    justifyContent: 'center',
+    width: '100%',
   },
   text: {
     fontSize: 16,
     color: 'black',
     fontWeight: '500',
-    marginStart: '10@ms',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: 'black',
+    textAlign: 'center',
+  },
+  cTitle: {
+    borderBottomWidth: 0.2,
+    borderColor: COLORS.grey1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: -moderateScale(16),
+    height: '32@ms',
   },
 })
 

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useRef, useState } from 'react'
 import { View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 import { Tabs } from 'react-native-collapsible-tab-view'
@@ -17,13 +17,23 @@ import {
 } from './Constant'
 import SelfMedia from './Tabs/SelfMedia'
 import TaggedMedia from './Tabs/TaggedMedia'
-import { ProfileItems } from '@src/components/BottomSheet/items'
+import { IBSItem, PSItems, PPItems } from '@src/components/BottomSheet/items'
 
 const Profile: FC<HRSScreenPropsC<'ProfileTab', 'Profile'>> = () => {
   const [bOpen, setBOpen] = useState(false)
+  const bItems = useRef<IBSItem>()
   const user = useAppSelector(s => s.authController.user!)
 
-  console.debug('user -> ', user)
+  const _onSettings = () => {
+    bItems.current = PSItems
+    setBOpen(true)
+  }
+
+  const _onPlus = () => {
+    bItems.current = PPItems
+    setBOpen(true)
+  }
+
   return (
     <View style={styles.container}>
       <Tabs.Container
@@ -38,10 +48,11 @@ const Profile: FC<HRSScreenPropsC<'ProfileTab', 'Profile'>> = () => {
         </Tabs.Tab>
       </Tabs.Container>
       <PersistentHeader
-        onBottomSheet={() => setBOpen(true)}
+        onPlus={_onPlus}
+        onSettings={_onSettings}
         username={user.name.first}
       />
-      <BSheet onCloseBottomSheet={setBOpen} open={bOpen} items={ProfileItems} />
+      <BSheet onCloseBottomSheet={setBOpen} open={bOpen} bs={bItems.current!} />
     </View>
   )
 }

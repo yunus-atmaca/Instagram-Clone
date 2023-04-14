@@ -1,39 +1,74 @@
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Feather from 'react-native-vector-icons/Feather'
+import Octicons from 'react-native-vector-icons/Octicons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-export interface IItem {
-  name: string
+export interface IBSItem {
+  title?: string
+  hasLineSeparator?: boolean
+  items: string[]
+  snapPoint: string[]
 }
 
-const ProfileItems: IItem[] = [
-  {
-    name: 'Setting',
-  },
-  {
-    name: 'Your activity',
-  },
-  {
-    name: 'Archive',
-  },
-  {
-    name: 'QR code',
-  },
-  {
-    name: 'Saved',
-  },
-  {
-    name: 'Orders and payments',
-  },
-  {
-    name: 'Close Friends',
-  },
-  {
-    name: 'Favorites',
-  },
-]
+//Profile Settings
+const PSItems: IBSItem = {
+  snapPoint: ['50%'],
+  items: [
+    'Setting',
+    'Your activity',
+    'Archive',
+    'QR code',
+    'Saved',
+    'Orders and payments',
+    'Close Friends',
+    'Favorites',
+  ],
+}
+
+//Profile plus
+const PPItems: IBSItem = {
+  title: 'Create',
+  hasLineSeparator: true,
+  snapPoint: ['45%'],
+  items: ['Reel', 'Post', 'Story', 'Story Highlight', 'Live', 'Guide'],
+}
 
 const getIconByName = (name: string) => {
   switch (name) {
+    //Plus Items
+    case 'Reel':
+      return <Octicons name={'video'} color={'black'} size={20} />
+    case 'Post':
+      return (
+        <MaterialCommunityIcons
+          name={'crop-square'}
+          color={'black'}
+          size={20}
+        />
+      )
+    case 'Story':
+      return <Feather name={'plus-circle'} color={'black'} size={20} />
+    case 'Story Highlight':
+      return (
+        <MaterialCommunityIcons
+          name={'heart-plus-outline'}
+          color={'black'}
+          size={20}
+        />
+      )
+    case 'Live':
+      return <MaterialIcons name={'live-tv'} color={'black'} size={20} />
+    case 'Guide':
+      return (
+        <MaterialCommunityIcons
+          name={'television-guide'}
+          color={'black'}
+          size={20}
+        />
+      )
+
+    //Settings Items
     case 'Setting':
       return <Ionicons name={'md-settings-outline'} color={'black'} size={20} />
     case 'Your activity':
@@ -55,4 +90,4 @@ const getIconByName = (name: string) => {
   }
 }
 
-export { ProfileItems, getIconByName }
+export { PPItems, PSItems, getIconByName }
