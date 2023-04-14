@@ -5,6 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import SplashScreen from 'react-native-splash-screen'
 import Orientation from 'react-native-orientation-locker'
 import { Provider } from 'react-redux'
+import { PortalProvider } from '@gorhom/portal'
 
 import { useSession } from '@src/hooks/app'
 import { store } from '@src/store'
@@ -37,7 +38,9 @@ const Root = () => {
 const App = () => {
   return (
     <Provider store={store}>
-      <Root />
+      <PortalProvider>
+        <Root />
+      </PortalProvider>
     </Provider>
   )
 }

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 import { Tabs } from 'react-native-collapsible-tab-view'
@@ -6,6 +6,7 @@ import { Tabs } from 'react-native-collapsible-tab-view'
 import { COLORS } from '@src/res'
 import { HRSScreenPropsC } from '@src/types/navigation'
 import { useAppSelector } from '@src/types/store'
+import { BSheet } from '@src/components'
 
 import Header from './Header'
 import PersistentHeader from './PersistentHeader'
@@ -16,9 +17,10 @@ import {
 } from './Constant'
 import SelfMedia from './Tabs/SelfMedia'
 import TaggedMedia from './Tabs/TaggedMedia'
-import TabBar from './Tabs/TabBar'
+import { ProfileItems } from '@src/components/BottomSheet/items'
 
 const Profile: FC<HRSScreenPropsC<'ProfileTab', 'Profile'>> = () => {
+  const [bOpen, setBOpen] = useState(false)
   const user = useAppSelector(s => s.authController.user!)
 
   console.debug('user -> ', user)
@@ -35,7 +37,11 @@ const Profile: FC<HRSScreenPropsC<'ProfileTab', 'Profile'>> = () => {
           <TaggedMedia />
         </Tabs.Tab>
       </Tabs.Container>
-      <PersistentHeader username={user.name.first} />
+      <PersistentHeader
+        onBottomSheet={() => setBOpen(true)}
+        username={user.name.first}
+      />
+      <BSheet onCloseBottomSheet={setBOpen} open={bOpen} items={ProfileItems} />
     </View>
   )
 }

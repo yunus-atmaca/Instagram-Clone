@@ -6,6 +6,7 @@ import Stories from './Stories'
 import Posts from './Posts'
 import SearchBar from './SearchBar'
 import LongPressDetails from './LongPressDetails'
+import BSheet from './BottomSheet'
 
 export {
   LongPressDetails,
@@ -16,4 +17,5 @@ export {
   Stories,
   Posts,
   SearchBar,
+  BSheet
 }

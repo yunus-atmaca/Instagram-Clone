@@ -10,9 +10,10 @@ import { COLORS } from '@src/res'
 
 type Props = {
   username: string
+  onBottomSheet: () => void
 }
 
-const PersistentHeader: FC<Props> = ({ username }) => {
+const PersistentHeader: FC<Props> = ({ username, onBottomSheet }) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -21,7 +22,7 @@ const PersistentHeader: FC<Props> = ({ username }) => {
       </View>
       <View style={styles.content}>
         <FontAwesome style={{ marginEnd: 18 }} name="plus-square-o" size={24} />
-        <Octicons name="three-bars" size={24} />
+        <Octicons onPress={onBottomSheet} name="three-bars" size={24} />
       </View>
     </View>
   )
